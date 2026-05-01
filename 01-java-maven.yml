@@ -1,0 +1,31 @@
+---
+ - hosts: webservers
+   become: true
+   tasks:
+     - name: Install Java
+       yum:
+         name: java-17-amazon-corretto
+         state: present
+
+     - name: Install maven
+       yum:
+         name: maven
+         state: present
+
+     - name: check java version
+       command: java -version
+       register: java_output
+       ignore_errors: yes
+
+     - name: check maven version
+       command: mvn -v
+       register: maven_output
+       ignore_errors: yes
+
+     - name: show maven version
+       debug:
+         var: maven_output.stdout
+
+     - name: show java version
+       debug:
+         var: java_output.stderr

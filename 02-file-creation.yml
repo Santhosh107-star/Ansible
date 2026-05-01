@@ -1,0 +1,7 @@
+---
+ - hosts: all
+   tasks: 
+     - name: file creation
+       file:
+         path: ./alien.txt
+         state: touch
